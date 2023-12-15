@@ -12,16 +12,36 @@ class BooksController < ApplicationController
     @book = Book.new(book_params)
     @book.user_id = current_user.id
     @book.save
-    redirect_to book_path(@book.user.id)
+    redirect_to book_path(@book.id)
   end
 
   def show
-    @book = Book.new
+    @book_new = Book.new
     @user = current_user
-    # @book_user = Book.find(params[:id])
+    @book = Book.find(params[:id])
   end
 
   def edit
+    @book = Book.find(params[:id])
+  end
+
+  def update
+    @book = Book.find(params[:id])
+    if @book.update(book_params)
+      # updateが成功したとき
+      # flash[:notice] = "Book was successfully updated."
+      redirect_to book_path(@book.id)
+    else
+      #updateが失敗したとき
+      render :edit
+    end
+  end
+
+  def destroy
+    book = Book.find(params[:id])
+    book.destroy
+    # flash[:notice] = "Book was successfully destroyed."
+    redirect_to books_path
   end
 
   private

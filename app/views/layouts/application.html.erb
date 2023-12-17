@@ -24,7 +24,7 @@
           <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav ml-auto">
               <% if user_signed_in? %>
-                <%= link_to user_path(current_user.id), class: 'nav-link text-white' do%>
+                <%= link_to user_path(current_user.id), class: 'nav-link text-white ' do%>
                   <i class = "fa-solid fa-house"></i> Home
                 <% end %>
                 <%= link_to users_path, class: 'nav-link text-white' do%>
@@ -57,15 +57,7 @@
     </header>
     <main>
       <div>
-        <% if @book.errors.any? %>
-          <%= @book.errors.count %>errors prohibited this obj from being saved:
-          <ul>
-            <% @book.errors.full_messages.each do |message| %>
-              <li><%= message %></li>
-            <% end %>
-          </ul>
-        <% end %>
-        <% flash[:notice] %>
+        <%= flash[:notice] %>
         <%= yield %>
       </div>
     </main>
